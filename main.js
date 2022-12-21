@@ -2,14 +2,17 @@ const menuEmail = document.querySelector('.navbar-email'); //busca el elemento n
 const desktopMenu = document.querySelector('.desktop-menu');
 const menuHamIcon = document.querySelector('.menu');
 const mobileMenu = document.querySelector('.mobile-menu');
+const productDetailProductIcon = document.querySelector('.product-detail-close')
 const menuCarrito = document.querySelector('.navbar-shopping-cart');
 const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 const cardContainer = document.querySelector('.cards-container');
+const productDetailContainer = document.querySelector('#productDetail');
 
 
 menuEmail.addEventListener('click', toggleDesktopMenu);
 menuHamIcon.addEventListener('click', toggleMobileMenu);
 menuCarrito.addEventListener('click', toggleCarritoAside);
+productDetailProductIcon.addEventListener('click', closeProductDetailAside);
 
 function toggleDesktopMenu(){
 
@@ -24,6 +27,7 @@ function toggleDesktopMenu(){
 
 function toggleMobileMenu(){
     const isAsideClosed = shoppingCartContainer.classList.contains('inactive');
+    closeProductDetailAside()
 
     if(!isAsideClosed){ //valida si el menu mobile está abiert
         shoppingCartContainer.classList.add('inactive') //cierra el menu mobile
@@ -39,6 +43,14 @@ function toggleCarritoAside(){
 
     if(!isMobileMenuClosed){ //valida si el menu mobile está abiert
         mobileMenu.classList.add('inactive') //cierra el menu mobile
+    }
+
+    const isProductDetailClosed = productDetailContainer.classList.contains('inactive');
+
+    //
+
+    if(!isProductDetailClosed){ //valida si el detalle de producto está abierto
+        productDetailContainer.classList.add('inactive') //cierra el detalle de producto
     }
 
     shoppingCartContainer.classList.toggle('inactive');
@@ -110,6 +122,7 @@ function renderProducts(arr){
     
         const productImg = document.createElement('img');
         productImg.setAttribute('src', product.image);
+        productImg.addEventListener('click', openProductDetailAside)
     
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -146,3 +159,12 @@ function renderProducts(arr){
 }
 
 renderProducts(productList)
+
+function openProductDetailAside(){
+    shoppingCartContainer.classList.add('inactive');
+    productDetailContainer.classList.remove("inactive");
+}
+
+function closeProductDetailAside(){
+    productDetailContainer.classList.add("inactive");
+}
